@@ -1,0 +1,38 @@
+{
+  "reporting_entity_name": "United-HealthCare-Services-Inc",
+  "reporting_entity_type": "Third-Party Administrator",
+  "reporting_structure": [
+    {
+      "reporting_plans": [
+        {
+          "plan_name": "United-Healthcare-EPO",
+          "plan_id": "510540405",
+          "plan_id_type": "EIN",
+          "plan_market_type": "group"
+        }
+      ],
+      "in_network_files": [
+        {
+          "description": "in-network files",
+          "location": "https://uhc-tic-mrf.azureedge.net/public-mrf/2025-06-01/2025-06-01_United-HealthCare-Services--Inc-_Third-Party-Administrator_Core-EPO_578_in-network-rates.json.gz"
+        },
+        {
+          "description": "in-network files",
+          "location": "https://uhc-tic-mrf.azureedge.net/public-mrf/2025-06-01/2025-06-01_United-HealthCare-Services--Inc-_Third-Party-Administrator_OHPH-Acupuncture-Massage-Naturopath_31_in-network-rates.json.gz"
+        },
+        {
+          "description": "in-network files",
+          "location": "https://uhc-tic-mrf.azureedge.net/public-mrf/2025-06-01/2025-06-01_United-HealthCare-Services--Inc-_Third-Party-Administrator_OHPH-Chiro_28_in-network-rates.json.gz"
+        },
+        {
+          "description": "in-network files",
+          "location": "https://uhc-tic-mrf.azureedge.net/public-mrf/2025-06-01/2025-06-01_United-HealthCare-Services--Inc-_Third-Party-Administrator_Choice-EPO_561_in-network-rates.json.gz"
+        },
+        {
+          "description": "in-network files",
+          "location": "https://uhc-tic-mrf.azureedge.net/public-mrf/2025-06-01/2025-06-01_United-HealthCare-Services--Inc-_Third-Party-Administrator_OHPH-ST_30_in-network-rates.json.gz"
+        }
+      ]
+    }
+  ]
+}

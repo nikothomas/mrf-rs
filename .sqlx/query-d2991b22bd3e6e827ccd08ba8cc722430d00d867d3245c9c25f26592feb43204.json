@@ -1,0 +1,45 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            INSERT INTO mrf.negotiated_prices (\n                negotiated_rate_detail_id, negotiated_type, negotiated_rate,\n                expiration_date, service_code, billing_class,\n                billing_code_modifier, additional_information\n            ) VALUES ($1, $2::mrf.negotiated_type, $3, $4::date, $5, $6::mrf.billing_class, $7, $8)\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int8",
+        {
+          "Custom": {
+            "name": "mrf.negotiated_type",
+            "kind": {
+              "Enum": [
+                "negotiated",
+                "derived",
+                "fee",
+                "percentage",
+                "per_diem"
+              ]
+            }
+          }
+        },
+        "Numeric",
+        "Date",
+        "VarcharArray",
+        {
+          "Custom": {
+            "name": "mrf.billing_class",
+            "kind": {
+              "Enum": [
+                "professional",
+                "institutional",
+                "professional-institutional"
+              ]
+            }
+          }
+        },
+        "VarcharArray",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "d2991b22bd3e6e827ccd08ba8cc722430d00d867d3245c9c25f26592feb43204"
+}

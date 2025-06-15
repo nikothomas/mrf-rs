@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                INSERT INTO mrf.payment_providers (payment_id, npi, billed_charge)\n                VALUES ($1, $2, $3)\n                ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int8",
+        "Int8Array",
+        "Numeric"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "2b78fc89b1583b83c813cf106b6e666e745992bfdaea128f904e0aef14397d2f"
+}

@@ -1,0 +1,46 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                INSERT INTO mrf.out_of_network_rates (\n                    mrf_file_id, name, billing_code_type, billing_code_type_version,\n                    billing_code, description\n                ) VALUES ($1, $2, $3::mrf.billing_code_type, $4, $5, $6)\n                RETURNING id\n                ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int8",
+        "Varchar",
+        {
+          "Custom": {
+            "name": "mrf.billing_code_type",
+            "kind": {
+              "Enum": [
+                "CPT",
+                "NDC",
+                "HCPCS",
+                "RC",
+                "ICD",
+                "MS-DRG",
+                "R-DRG",
+                "APC",
+                "CDT",
+                "CSTM-ALL",
+                "OTHER"
+              ]
+            }
+          }
+        },
+        "Varchar",
+        "Varchar",
+        "Text"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "1d3199f617cbe2e5726b45d5d21ed21e22b6ba81f36fe26535c9d11a46d414a8"
+}

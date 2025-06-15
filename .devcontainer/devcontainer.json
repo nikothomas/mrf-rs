@@ -1,0 +1,58 @@
+{
+  "name": "MRF-RS Development Container",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+
+  // Configure tool-specific properties
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "vadimcn.vscode-lldb",
+        "serayuzgur.crates",
+        "tamasfe.even-better-toml",
+        "ms-azuretools.vscode-docker",
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-pg",
+        "usernamehw.errorlens",
+        "gruntfuggly.todo-tree"
+      ],
+      "settings": {
+        "rust-analyzer.cargo.features": "all",
+        "rust-analyzer.checkOnSave.command": "clippy",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "rust-lang.rust-analyzer",
+        "[rust]": {
+          "editor.defaultFormatter": "rust-lang.rust-analyzer"
+        }
+      }
+    }
+  },
+
+  // Port forwarding
+  "forwardPorts": [5432, 8080],
+  "portsAttributes": {
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
+    },
+    "8080": {
+      "label": "Application",
+      "onAutoForward": "notify"
+    }
+  },
+
+  // Environment variables
+  "remoteEnv": {
+    "DATABASE_URL": "postgresql://postgres:postgres@db:5432/mrf_db",
+    "RUST_LOG": "debug",
+    "RUST_BACKTRACE": "1"
+  },
+
+  // Run commands after container is created
+  "postCreateCommand": "if [ -f .devcontainer/post-create.sh ]; then chmod +x .devcontainer/post-create.sh && .devcontainer/post-create.sh; else echo 'Workspace is empty. Please clone your repository first.'; fi",
+
+  // Run as non-root user
+  "remoteUser": "vscode"
+} 

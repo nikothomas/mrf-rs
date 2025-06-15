@@ -1,0 +1,37 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            INSERT INTO mrf.allowed_amounts (\n                out_of_network_rate_id, tin_type, tin_value, service_code, billing_class\n            ) VALUES ($1, $2, $3, $4, $5::mrf.billing_class)\n            RETURNING id\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int8",
+        "Varchar",
+        "Varchar",
+        "VarcharArray",
+        {
+          "Custom": {
+            "name": "mrf.billing_class",
+            "kind": {
+              "Enum": [
+                "professional",
+                "institutional",
+                "professional-institutional"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "9872eab77c2dca85645161af24b3596097b6c1dab6b029ccdfe1979fa6e2828f"
+}

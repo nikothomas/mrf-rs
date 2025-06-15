@@ -1,0 +1,24 @@
+DROP TABLE IF EXISTS taxonomy_reference;
+DROP TABLE IF EXISTS other_name_record;
+DROP TABLE IF EXISTS endpoint_record;
+DROP TABLE IF EXISTS practice_location_record;
+DROP TABLE IF EXISTS other_identifier;
+DROP TABLE IF EXISTS taxonomy_code;
+DROP TABLE IF EXISTS authorized_official;
+DROP TABLE IF EXISTS address;
+DROP TABLE IF EXISTS organization_name;
+DROP TABLE IF EXISTS provider_name;
+DROP TABLE IF EXISTS nppes_record;
+
+DROP TYPE IF EXISTS name_suffix_code;
+DROP TYPE IF EXISTS sex_code;
+DROP TYPE IF EXISTS other_provider_name_type_code;
+DROP TYPE IF EXISTS other_provider_identifier_issuer_code;
+DROP TYPE IF EXISTS primary_taxonomy_switch;
+DROP TYPE IF EXISTS sole_proprietor_code;
+DROP TYPE IF EXISTS deactivation_reason_code;
+DROP TYPE IF EXISTS state_code;
+DROP TYPE IF EXISTS group_taxonomy_code;
+DROP TYPE IF EXISTS subpart_code;
+DROP TYPE IF EXISTS entity_type;
+DROP TYPE IF EXISTS name_prefix_code;

@@ -1,0 +1,58 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                INSERT INTO mrf.in_network_rates (\n                    mrf_file_id, negotiation_arrangement, name,\n                    billing_code_type, billing_code_type_version, billing_code, description\n                ) VALUES ($1, $2::mrf.negotiation_arrangement, $3, $4::mrf.billing_code_type, $5, $6, $7)\n                RETURNING id\n                ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int8",
+        {
+          "Custom": {
+            "name": "mrf.negotiation_arrangement",
+            "kind": {
+              "Enum": [
+                "ffs",
+                "bundle",
+                "capitation"
+              ]
+            }
+          }
+        },
+        "Varchar",
+        {
+          "Custom": {
+            "name": "mrf.billing_code_type",
+            "kind": {
+              "Enum": [
+                "CPT",
+                "NDC",
+                "HCPCS",
+                "RC",
+                "ICD",
+                "MS-DRG",
+                "R-DRG",
+                "APC",
+                "CDT",
+                "CSTM-ALL",
+                "OTHER"
+              ]
+            }
+          }
+        },
+        "Varchar",
+        "Varchar",
+        "Text"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "e3e713c0290e82cb22e36a534f429ff0b687fc905f23f5686ae461aa7fab09b1"
+}

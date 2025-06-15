@@ -1,0 +1,62 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            INSERT INTO mrf.mrf_files (\n                reporting_entity_name, reporting_entity_type, plan_name,\n                plan_id_type, plan_id, plan_market_type, last_updated_on, version\n            ) VALUES ($1, $2::mrf.entity_type, $3, $4::mrf.plan_id_type, $5, $6::mrf.market_type, $7::date, $8)\n            RETURNING id\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        {
+          "Custom": {
+            "name": "mrf.entity_type",
+            "kind": {
+              "Enum": [
+                "group_health_plan",
+                "health_insurance_issuer",
+                "third_party_administrator",
+                "healthcare_clearinghouse",
+                "other"
+              ]
+            }
+          }
+        },
+        "Varchar",
+        {
+          "Custom": {
+            "name": "mrf.plan_id_type",
+            "kind": {
+              "Enum": [
+                "ein",
+                "hios"
+              ]
+            }
+          }
+        },
+        "Varchar",
+        {
+          "Custom": {
+            "name": "mrf.market_type",
+            "kind": {
+              "Enum": [
+                "group",
+                "individual"
+              ]
+            }
+          }
+        },
+        "Date",
+        "Varchar"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "a4220089c75b0bee5425705bfd794c852482e367ba75ecf1b5e50fcb76a56826"
+}

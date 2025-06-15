@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                    INSERT INTO mrf.negotiated_rate_provider_groups (\n                        negotiated_rate_detail_id, npi, tin_type, tin_value\n                    ) VALUES ($1, $2, $3, $4)\n                    ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int8",
+        "Int8Array",
+        "Varchar",
+        "Varchar"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "989ff735686894e1a9992201ce9c35c7840f77bc694f5f8a44f0075ac5b6ead2"
+}

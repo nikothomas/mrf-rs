@@ -1,0 +1,24 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            INSERT INTO mrf.payments (allowed_amount_id, allowed_amount, billing_code_modifier)\n            VALUES ($1, $2, $3)\n            RETURNING id\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int8",
+        "Numeric",
+        "VarcharArray"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "6b4ccd50e9ba776eb92ce0dc31abac92dc4450a3830edcd9613f63f35a4c73ee"
+}

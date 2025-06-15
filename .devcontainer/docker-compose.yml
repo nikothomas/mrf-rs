@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - mrf-workspace:/workspace
+      - cargo-cache:/usr/local/cargo
+      - target-cache:/workspace/target
+    command: sleep infinity
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/mrf_db
+      RUST_LOG: debug
+      RUST_BACKTRACE: 1
+    depends_on:
+      - db
+    networks:
+      - mrf-network
+    # Add init to handle signal forwarding properly
+    init: true
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mrf_db
+    ports:
+      - "5432:5432"
+    networks:
+      - mrf-network
+
+volumes:
+  mrf-workspace:
+  postgres-data:
+  cargo-cache:
+  target-cache:
+
+networks:
+  mrf-network:
+    driver: bridge 

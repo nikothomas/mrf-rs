@@ -1,0 +1,37 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                        INSERT INTO mrf.covered_services (\n                            in_network_rate_id, billing_code_type, billing_code_type_version,\n                            billing_code, description\n                        ) VALUES ($1, $2::mrf.billing_code_type, $3, $4, $5)\n                        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int8",
+        {
+          "Custom": {
+            "name": "mrf.billing_code_type",
+            "kind": {
+              "Enum": [
+                "CPT",
+                "NDC",
+                "HCPCS",
+                "RC",
+                "ICD",
+                "MS-DRG",
+                "R-DRG",
+                "APC",
+                "CDT",
+                "CSTM-ALL",
+                "OTHER"
+              ]
+            }
+          }
+        },
+        "Varchar",
+        "Varchar",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "5b52d7d9a70d63e944ed962e74e7274b311ccb728ca818d5e1717bc4d3f077b7"
+}

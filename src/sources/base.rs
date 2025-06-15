@@ -20,6 +20,7 @@ use tracing::{debug, info, warn};
 pub struct HttpClient {
     client: Client,
     config: SourceConfig,
+    rate_limiter: Option<Arc<RateLimiter>>,
 }
 
 impl HttpClient {
@@ -35,14 +36,8 @@ impl HttpClient {
             ))
             .gzip(true)
             .deflate(true)
-            .brotli(true)
-            // Set high connection pool limits for maximum concurrency
-            .pool_max_idle_per_host(10000)
-            .pool_idle_timeout(Duration::from_secs(90))
-            // Disable connection pooling limits
-            .no_proxy()
-            .tcp_nodelay(true)
-            .http2_adaptive_window(true);
+            .brotli(true);
+            
 
         if let Some(user_agent) = &config.user_agent {
             builder = builder.user_agent(user_agent);
@@ -52,9 +47,12 @@ impl HttpClient {
             .build()
             .map_err(|e| SourceError::Config(format!("Failed to build HTTP client: {}", e)))?;
 
+        let rate_limiter = config.rate_limit.map(|limit| Arc::new(RateLimiter::new(limit)));
+
         Ok(Self {
             client,
             config,
+            rate_limiter,
         })
     }
 
@@ -65,6 +63,11 @@ impl HttpClient {
 
         let mut attempt = 0;
         loop {
+            // Apply rate limiting
+            if let Some(limiter) = &self.rate_limiter {
+                limiter.acquire().await;
+            }
+
             debug!("HTTP GET attempt {} for {}", attempt + 1, url);
 
             match self.client.get(url).send().await {
@@ -307,6 +310,38 @@ impl BaseSource {
         debug!("Saved to cache: {:?}", cache_path);
         
         Ok(())
+    }
+}
+
+/// Simple rate limiter implementation
+struct RateLimiter {
+    rate: f64, // requests per second
+    last_request: tokio::sync::Mutex<Option<tokio::time::Instant>>,
+}
+
+impl RateLimiter {
+    fn new(rate: f64) -> Self {
+        Self {
+            rate,
+            last_request: tokio::sync::Mutex::new(None),
+        }
+    }
+
+    async fn acquire(&self) {
+        let mut last = self.last_request.lock().await;
+        let now = tokio::time::Instant::now();
+        
+        if let Some(last_time) = *last {
+            let elapsed = now.duration_since(last_time);
+            let min_interval = Duration::from_secs_f64(1.0 / self.rate);
+            
+            if elapsed < min_interval {
+                let wait_time = min_interval - elapsed;
+                sleep(wait_time).await;
+            }
+        }
+        
+        *last = Some(tokio::time::Instant::now());
     }
 }
 

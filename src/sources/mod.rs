@@ -269,7 +269,7 @@ impl Default for SourceConfig {
         Self {
             base_url: String::new(),
             user_agent: Some("mrf-rs/0.1.0".to_string()),
-            rate_limit: Some(10.0), // 10 requests per second
+            rate_limit: Some(100.0), // 100 requests per second
             default_options: Some(FetchOptions::default()),
             extra: serde_json::Value::Null,
         }
@@ -293,6 +293,6 @@ mod tests {
     fn test_source_config_default() {
         let config = SourceConfig::default();
         assert_eq!(config.user_agent, Some("mrf-rs/0.1.0".to_string()));
-        assert_eq!(config.rate_limit, Some(10.0));
+        assert_eq!(config.rate_limit, Some(100.0));
     }
 }
